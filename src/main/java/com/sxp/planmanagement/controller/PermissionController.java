@@ -15,6 +15,13 @@ public class PermissionController {
     @RequestMapping("/tologin")
     public String login(String userName, String password, HttpSession session){
         session.setAttribute("userName",userName);
+        System.out.println(userName+" 登录成功");
         return "index";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.setAttribute("userName",null);
+        return "login";
     }
 }

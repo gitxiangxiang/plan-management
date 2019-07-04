@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -23,76 +23,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <nav class="navbar navbar-expand-xl navbar-light bg-light">
-                        <a class="navbar-brand" href="#">
-                            <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
-                            <h1 class="tm-site-title mb-0">主页</h1>
-                        </a>
-                        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#">我的项目
-                                        <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Reports
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Daily Report</a>
-                                        <a class="dropdown-item" href="#">Weekly Report</a>
-                                        <a class="dropdown-item" href="#">Yearly Report</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="products.html">Products</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="accounts.html">Accounts</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Settings
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Profile</a>
-                                        <a class="dropdown-item" href="#">Billing</a>
-                                        <a class="dropdown-item" href="#">Customize</a>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex" href="/login">
-                                        <i class="far fa-user mr-2 tm-logout-icon"></i>
-                                        <span>Logout</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+                    <div th:insert="~{dashboard::topbar(activePage='index')}"></div>
                 </div>
             </div>
             <!-- row -->
             <div class="row tm-content-row tm-mt-big">
                 <div class="tm-col tm-col-big">
                     <div class="bg-white tm-block h-100">
-                        <h2 class="tm-block-title">Latest Hits</h2>
+                        <h2 class="tm-block-title">折线图</h2>
                         <canvas id="lineChart"></canvas>
                     </div>
                 </div>
                 <div class="tm-col tm-col-big">
                     <div class="bg-white tm-block h-100">
-                        <h2 class="tm-block-title">Performance</h2>
+                        <h2 class="tm-block-title">柱状图</h2>
                         <canvas id="barChart"></canvas>
                     </div>
                 </div>
@@ -100,51 +44,51 @@
                     <div class="bg-white tm-block h-100">
                         <canvas id="pieChart" class="chartjs-render-monitor"></canvas>
                     </div>
-                </div><div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >建站模板</a></div>
+                </div>
 
                 <div class="tm-col tm-col-big">
                     <div class="bg-white tm-block h-100">
                         <div class="row">
                             <div class="col-8">
-                                <h2 class="tm-block-title d-inline-block">Top Product List</h2>
+                                <h2 class="tm-block-title d-inline-block">我参与的项目</h2>
 
                             </div>
                             <div class="col-4 text-right">
-                                <a href="products.html" class="tm-link-black">View All</a>
+                                <a href="/products" class="tm-link-black">查看全部</a>
                             </div>
                         </div>
                         <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
                             <li class="tm-list-group-item">
-                                Donec eget libero
+                                第一个项目
                             </li>
                             <li class="tm-list-group-item">
-                                Nunc luctus suscipit elementum
+                                第二个项目
                             </li>
                             <li class="tm-list-group-item">
-                                Maecenas eu justo maximus
+                                第三个项目
                             </li>
-                            <li class="tm-list-group-item">
-                                Pellentesque auctor urna nunc
-                            </li>
-                            <li class="tm-list-group-item">
-                                Sit amet aliquam lorem efficitur
-                            </li>
-                            <li class="tm-list-group-item">
-                                Pellentesque auctor urna nunc
-                            </li>
-                            <li class="tm-list-group-item">
-                                Sit amet aliquam lorem efficitur
-                            </li>
+                            <!--<li class="tm-list-group-item">-->
+                                <!--Pellentesque auctor urna nunc-->
+                            <!--</li>-->
+                            <!--<li class="tm-list-group-item">-->
+                                <!--Sit amet aliquam lorem efficitur-->
+                            <!--</li>-->
+                            <!--<li class="tm-list-group-item">-->
+                                <!--Pellentesque auctor urna nunc-->
+                            <!--</li>-->
+                            <!--<li class="tm-list-group-item">-->
+                                <!--Sit amet aliquam lorem efficitur-->
+                            <!--</li>-->
                         </ol>
                     </div>
                 </div>
                 <div class="tm-col tm-col-big">
                     <div class="bg-white tm-block h-100">
-                        <h2 class="tm-block-title">Calendar</h2>
+                        <h2 class="tm-block-title">日历</h2>
                         <div id="calendar"></div>
                         <div class="row mt-4">
                             <div class="col-12 text-right">
-                                <a href="#" class="tm-link-black">View Schedules</a>
+                                <a href="#" class="tm-link-black">查看日程表</a>
                             </div>
                         </div>
 
