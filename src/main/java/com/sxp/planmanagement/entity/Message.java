@@ -2,6 +2,7 @@ package com.sxp.planmanagement.entity;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -9,8 +10,11 @@ import java.util.Date;
  * @create 2019-07-04 21:43
  **/
 @Data
+@Table(name = "message")
 public class Message {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     /**
@@ -21,12 +25,14 @@ public class Message {
     /**
      * 发送者
      */
-    private String sendUserId;
+    @Column(name = "senduserid")
+    private int sendUserId;
 
     /**
      * 接受者
      */
-    private String receiveUserId;
+    @Column(name = "receiveuserid")
+    private int receiveUserId;
 
     /**
      * 发送时间
