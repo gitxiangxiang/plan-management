@@ -1,13 +1,17 @@
 package com.sxp.planmanagement.controller;
 
 import com.sxp.planmanagement.entity.Project;
+import com.sxp.planmanagement.entity.Task;
 import com.sxp.planmanagement.service.ProjectService;
+import com.sxp.planmanagement.service.TaskService;
+import com.sxp.planmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,24 +24,50 @@ public class ProjectController {
 
     @Autowired
     ProjectService projectService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    TaskService taskService;
 
     @RequestMapping("/per-project")
-    public String projectDetail(){
+    public String projectDetail(int projectId,Model model, HttpSession session){
+        Project project = projectService.findById(projectId);
+        session.setAttribute("projectName",project.getProjectName());
+        session.setAttribute("projectId",projectId);
+        List<Task> tasks = taskService.showTaskInProject(projectId);
+        model.addAttribute("tasks",tasks);
+        return "per-project";
+    }
+
+    @RequestMapping("/per-project2")
+    public String projectDetail(Model model, HttpSession session){
+        Object projectId = session.getAttribute("projectId");
+        if (projectId == null) return "redirect:/login";
+        Project project = projectService.findById((Integer) projectId);
+        List<Task> tasks = taskService.showTaskInProject((Integer) projectId);
+        model.addAttribute("tasks",tasks);
         return "per-project";
     }
 
     @RequestMapping("/newProject")
-    public String newProject(Project project){
+    public String newProject(Project project,HttpSession session){
+        String userName = (String) session.getAttribute("userName");
+        if(userName == null) return "redirect:/login";
+        project.setManager(userService.getUserIdByUserName(userName));
+        project.setCreateDate(new Date());
+        projectService.NewProject(project);
         return "redirect:/";
     }
 
     @RequestMapping("/")
     public String index(HttpSession session, Model model){
         String userName = (String) session.getAttribute("userName");
-        if(userName == null) return "login";
-        List<Project> projects = projectService.getProjectByUserName(userName);
+        if(userName == null) return "redirect:/login";
+        int userId = userService.getUserIdByUserName(userName);
+        List<Project> projects = projectService.ViewMyProject(userId);
         model.addAttribute("projects", projects);
-        System.out.println("检索项目");
+        System.out.println("用户 "+userName+" 检索项目");
+        System.out.println(projects);
         return "index";
     }
 }

@@ -10,7 +10,7 @@ import java.util.Date;
  * @create 2019-07-04 22:57
  **/
 @Data
-@Table(name = "project")
+@Entity(name = "project")
 public class Project {
 
     @Id
@@ -19,15 +19,19 @@ public class Project {
 
     @Column(name = "projectname")
     private String projectName;
+
     private int manager;
 
     @Column(name = "describetext")
-    private String describe;
+    private String description;
 
     @Column(name = "createdate")
     private Date createDate;
 
     @Column(name = "finishdate")
     private Date finishDate;
+
+    @Transient
+    private int MessageNumNotRead=0;
 
 }

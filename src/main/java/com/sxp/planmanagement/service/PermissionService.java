@@ -1,6 +1,9 @@
 package com.sxp.planmanagement.service;
 
+import com.sxp.planmanagement.dao.UserDao;
 import com.sxp.planmanagement.entity.User;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -13,22 +16,28 @@ import javax.servlet.http.HttpSession;
 @Service
 public class PermissionService {
 
+    @Autowired
+    UserDao userDao;
+
     public String getPassword(String userName){
-        return null;
+        return userDao.findByUserNameIs(userName).getPassword();
     }
 
-    public User findByUserName(){
-        return null;
+    public User findByUserName(String userName){
+        return userDao.findByUserNameIs(userName);
     }
 
     public boolean login(String userName,String password,HttpSession session){
-        if(password.equals(this.getPassword(userName))){
-            session.setAttribute("userName",userName);
+        try{
+            if(password.equals(this.getPassword(userName))){
+                session.setAttribute("userName",userName);
 //            session.setAttribute("userRole",0);
-            this.isOnline(session);
-            return true;
+                this.isOnline(session);
+                return true;
+            }
+        }catch (Exception e){
+            System.out.println(userName+" 用户不存在");
         }
-
         return false;
     }
 

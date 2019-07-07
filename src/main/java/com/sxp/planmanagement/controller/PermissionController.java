@@ -1,5 +1,8 @@
 package com.sxp.planmanagement.controller;
 
+import com.sxp.planmanagement.service.PermissionService;
+import com.sxp.planmanagement.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,9 +15,15 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class PermissionController {
 
+    @Autowired
+    PermissionService permissionService;
+
     @RequestMapping("/tologin")
     public String login(String userName, String password, HttpSession session){
-        session.setAttribute("userName",userName);
+        boolean success = permissionService.login(userName, password, session);
+        if(!success){
+            return "redirect:/login";
+        }
         System.out.println(userName+" 登录成功");
         return "redirect:/";
     }

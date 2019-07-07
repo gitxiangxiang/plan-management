@@ -46,9 +46,9 @@
                             </div>
                         </div>
                         <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
-                            <li class="tm-list-group-item" th:each="project:${projects}">
-                                <a class="project-name-link" href="/per-project">
-                                    [[${project.projectName}]] <button class="label label-warning">42</button></a>
+                            <li class="tm-list-group-item" th:each="project:${projects}" >
+                                <a class="project-name-link" href="/per-project?projectId=pid" th:href="@{/per-project(projectId=${project.id})}">
+                                    [[${project.projectName}]] <button class="label label-warning" th:unless="${project.messageNumNotRead==null or project.messageNumNotRead==0}">42</button></a>
                             </li>
                         </ol>
                     </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="tm-col tm-col-small">
                     <div class="bg-white tm-block h-100">
-                        <h2 class="tm-block-title">Upcoming Tasks</h2>
+                        <h2 class="tm-block-title">待办事项</h2>
                         <ol class="tm-list-group">
                             <li class="tm-list-group-item">List of tasks</li>
                             <li class="tm-list-group-item">Lorem ipsum doloe</li>

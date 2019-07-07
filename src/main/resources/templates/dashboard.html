@@ -47,27 +47,25 @@
                        aria-expanded="false">
                         Settings
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                         <a class="dropdown-item" href="#">Profile</a>
                         <a class="dropdown-item" href="#">Billing</a>
                         <a class="dropdown-item" href="#">Customize</a>
                     </div>
                 </li>
             </ul>
-            <ul class="navbar-nav" th:if="${session.userName!=null}">
-                <li class="nav-item">
-                    <a class="nav-link d-flex" href="/logout">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
                         <i class="far fa-user mr-2 tm-logout-icon"></i>
-                        <span>Logout</span>
+                        <span th:text="${session.userName}" th:if="${session.userName!=null}">用户名</span>
+                        <span th:text="请先登录" th:unless="${session.userName!=null}">用户名</span>
                     </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav" th:unless="${session.userName!=null}">
-                <li class="nav-item">
-                    <a class="nav-link d-flex" href="/login">
-                        <i class="far fa-user mr-2 tm-logout-icon"></i>
-                        <span>Login</span>
-                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                        <a class="dropdown-item" href="/logout" th:if="${session.userName!=null}">logout</a>
+                        <a class="dropdown-item" href="/login" th:unless="${session.userName!=null}">login</a>
+                    </div>
                 </li>
             </ul>
         </div>

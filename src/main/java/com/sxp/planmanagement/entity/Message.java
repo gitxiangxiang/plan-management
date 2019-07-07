@@ -10,7 +10,7 @@ import java.util.Date;
  * @create 2019-07-04 21:43
  **/
 @Data
-@Table(name = "message")
+@Entity(name = "message")
 public class Message {
 
     @Id
@@ -45,7 +45,7 @@ public class Message {
     private int type;
 
     /**
-     * 是否已读(0:未读，1:已读)
+     * 是否已读(false:未读，true:已读)
      */
     private Boolean read;
 

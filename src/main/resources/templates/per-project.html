@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${projectName}">projectName</title>
+    <title th:text="项目详情">projectName</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
@@ -22,11 +22,11 @@
                 <div class="bg-white tm-block h-100">
                     <div class="row">
                         <div class="col-md-8 col-sm-12">
-                            <h2 class="tm-block-title d-inline-block">Products</h2>
+                            <h2 class="tm-block-title d-inline-block" th:text="${session.projectName}">项目名</h2>
 
                         </div>
                         <div class="col-md-4 col-sm-12 text-right">
-                            <a href="/add-product" class="btn btn-small btn-primary">Add New Product</a>
+                            <a href="/add-product" class="btn btn-small btn-primary">添加新活动</a>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -34,92 +34,23 @@
                             <thead>
                             <tr class="tm-bg-gray">
                                 <th scope="col">&nbsp;</th>
-                                <th scope="col">Product Name</th>
-                                <th scope="col" class="text-center">Units Sold</th>
-                                <th scope="col" class="text-center">In Stock</th>
-                                <th scope="col">Expire Date</th>
+                                <th scope="col">活动名</th>
+                                <th scope="col" class="text-center">负责人</th>
+                                <th scope="col" class="text-center">完成情况</th>
+                                <th scope="col">截止日期</th>
                                 <th scope="col">&nbsp;</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="task:${tasks}">
                                 <th scope="row">
                                     <input type="checkbox" aria-label="Checkbox">
                                 </th>
-                                <td class="tm-product-name">1. In malesuada placerat (hover)</td>
-                                <td class="text-center">145</td>
-                                <td class="text-center">255</td>
-                                <td>2018-10-28</td>
-                                <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <input type="checkbox" aria-label="Checkbox">
-                                </th>
-                                <td class="tm-product-name">2. Aenean eget urna enim. Sed enim</td>
-                                <td class="text-center">240</td>
-                                <td class="text-center">260</td>
-                                <td>2018-10-24</td>
-                                <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <input type="checkbox" aria-label="Checkbox">
-                                </th>
-                                <td class="tm-product-name">3. Vivamus convallis tincidunt nisi</td>
-                                <td class="text-center">360</td>
-                                <td class="text-center">440</td>
-                                <td>2019-02-14</td>
-                                <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <input type="checkbox" aria-label="Checkbox">
-                                </th>
-                                <td class="tm-product-name">4. Donec semper massa eget</td>
-                                <td class="text-center">445</td>
-                                <td class="text-center">655</td>
-                                <td>2019-03-22</td>
-                                <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <input type="checkbox" aria-label="Checkbox">
-                                </th>
-                                <td class="tm-product-name">5. Donec semper massa eget</td>
-                                <td class="text-center">445</td>
-                                <td class="text-center">655</td>
-                                <td>2019-03-22</td>
-                                <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <input type="checkbox" aria-label="Checkbox">
-                                </th>
-                                <td class="tm-product-name">6. Donec semper massa eget</td>
-                                <td class="text-center">445</td>
-                                <td class="text-center">655</td>
-                                <td>2019-03-22</td>
-                                <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <input type="checkbox" aria-label="Checkbox">
-                                </th>
-                                <td class="tm-product-name">7. Donec semper massa eget</td>
-                                <td class="text-center">445</td>
-                                <td class="text-center">655</td>
-                                <td>2019-03-22</td>
-                                <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <input type="checkbox" aria-label="Checkbox">
-                                </th>
-                                <td class="tm-product-name">8. Donec semper massa eget</td>
-                                <td class="text-center">445</td>
-                                <td class="text-center">655</td>
-                                <td>2019-03-22</td>
+                                <td style="display: none" th:text="${task.id}"></td>
+                                <td class="tm-product-name" th:text="${task.taskName}">活动名</td>
+                                <td class="text-center" th:text="${task.leader}">负责人</td>
+                                <td class="text-center" th:text="${task.completeStatus}">完成情况</td>
+                                <td th:text="${task.finishDate}">截止时间</td>
                                 <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
                             </tr>
                             </tbody>
@@ -151,7 +82,7 @@
 
             <div class="col-xl-4 col-lg-12 tm-md-12 tm-sm-12 tm-col">
                 <div class="bg-white tm-block h-100">
-                    <h2 class="tm-block-title d-inline-block">Product Categories</h2>
+                    <h2 class="tm-block-title d-inline-block">我的活动</h2>
                     <table class="table table-hover table-striped mt-3">
                         <tbody>
                         <tr>
@@ -206,7 +137,8 @@
 <script>
     $(function () {
         $('.tm-product-name').on('click', function () {
-            window.location.href = "/edit-product";
+            let id = $(this).prev().text();
+            window.location.href = "/showTask?taskId="+id;
         });
     })
 </script>
