@@ -13,4 +13,6 @@ public interface UserToProjectDao extends JpaRepository<UserToProject, Integer> 
 
     List<UserToProject> findByUserIdIs(int userId);
 
+    List<UserToProject> findByProjectIdIs(int projectId);
+
 }

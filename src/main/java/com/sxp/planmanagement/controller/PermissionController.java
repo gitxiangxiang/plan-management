@@ -1,5 +1,6 @@
 package com.sxp.planmanagement.controller;
 
+import com.sxp.planmanagement.entity.User;
 import com.sxp.planmanagement.service.PermissionService;
 import com.sxp.planmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class PermissionController {
 
     @Autowired
     PermissionService permissionService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/tologin")
     public String login(String userName, String password, HttpSession session){
@@ -32,5 +35,11 @@ public class PermissionController {
     public String logout(HttpSession session){
         session.setAttribute("userName",null);
         return "login";
+    }
+
+    @RequestMapping("/toRegister")
+    public String register(User user){
+        userService.saveUser(user);
+        return "redirect:/login";
     }
 }

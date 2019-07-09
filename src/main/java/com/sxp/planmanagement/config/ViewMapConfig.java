@@ -18,7 +18,6 @@ public class ViewMapConfig implements WebMvcConfigurer {
         registry.addViewController("/products").setViewName("products");
         registry.addViewController("/accounts").setViewName("accounts");
         registry.addViewController("/edit-product").setViewName("edit-product");
-        registry.addViewController("/add-product").setViewName("add-product");
         registry.addViewController("/new-project").setViewName("new-project");
 
     }

@@ -1,5 +1,6 @@
 package com.sxp.planmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,6 +19,8 @@ public class User {
 
     @Column(name = "username")
     private String userName;
+
+    @JsonIgnore
     private String password;
     private boolean online;
     private int role;

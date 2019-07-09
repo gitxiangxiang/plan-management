@@ -59,8 +59,12 @@
                                            data-large-mode="true">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <label for="stock" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">负责人</label>
-                                    <input placeholder="请选择成员" value="全体成员" id="stock" name="leader" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-7 col-sm-7">
+                                    <label for="selectMemForNewTask" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">负责人</label>
+                                    <input placeholder="请选择成员" value="全体成员" id="selectMemForNewTask" name="leader" href="#modal-container-395724" data-toggle="modal" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-7 col-sm-7">
+                                </div>
+                                <div style="display: none">
+                                    <label for="memsId">负责人ID</label>
+                                    <input value="" id="memsId" name="leaderId" type="text">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
@@ -91,6 +95,52 @@
         </footer>
     </div>
 
+    <div class="modal fade" id="modal-container-395724" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">
+                        请选择参与该活动的成员
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover table-striped tm-table-striped-even mt-3">
+                        <thead>
+                        <tr class="tm-bg-gray">
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">成员</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">
+                                <input type="checkbox" aria-label="Checkbox" checked>
+                            </th>
+                            <td style="display: none" class="memberId" th:text="0"></td>
+                            <td class="tm-product-name-allMember" th:text="全体成员">成员姓名</td>
+                            <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
+                        </tr>
+                        <tr th:each="user:${users}">
+                            <th scope="row">
+                                <input type="checkbox" aria-label="Checkbox">
+                            </th>
+                            <td style="display: none" class="memberId" th:text="${user.id}"></td>
+                            <td class="tm-product-name" th:text="${user.userName}">成员姓名</td>
+                            <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="save" data-dismiss="modal">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/jquery-3.3.1.min.js"></script>
     <!-- https://jquery.com/download/ -->
     <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
@@ -100,6 +150,23 @@
     <script>
         $(function () {
             $('#expire_date').datepicker();
+        });
+
+        $("#save").click(function () {
+            $("#memsId").val("");
+            $("#selectMemForNewTask").val("");
+            if($(".tm-product-name-allMember").parent("tr").children("th").children("input:checkbox").is(":checked")){
+                $("#memsId").val("0");
+                $("#selectMemForNewTask").val("全体成员");
+            }else {
+                $("input:checkbox:checked").each(function(){
+                    let alreadyCheckedId = $("#memsId").val();
+                    $("#memsId").val(alreadyCheckedId+$(this).parent("th").parent("tr").children(".memberId").text()+",");
+                    let alreadyCheckedName = $("#selectMemForNewTask").val();
+                    $("#selectMemForNewTask").val(alreadyCheckedName+$(this).parent("th").parent("tr").children(".tm-product-name").text()+",");
+                });
+            }
+
         });
     </script>
 </body>
