@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sxp.planmanagement.entity.Project;
 import com.sxp.planmanagement.entity.Task;
+import com.sxp.planmanagement.entity.TaskToUser;
 import com.sxp.planmanagement.entity.UserToProject;
 import com.sxp.planmanagement.service.ProjectService;
 import com.sxp.planmanagement.service.TaskService;
@@ -57,7 +58,7 @@ public class ProjectController {
     public String projectDetail(Model model, HttpSession session){
         Object projectId = session.getAttribute("projectId");
         if (projectId == null) return "redirect:/";
-        Project project = projectService.findById((Integer) projectId);
+//        Project project = projectService.findById((Integer) projectId);
         List<Task> tasks = taskService.showTaskInProject((Integer) projectId);
         model.addAttribute("tasks",tasks);
         getProjectMember(session,model);
@@ -81,8 +82,11 @@ public class ProjectController {
         int userId = userService.getUserIdByUserName(userName);
         List<Project> projects = projectService.ViewMyProject(userId);
         model.addAttribute("projects", projects);
+        List<TaskToUser> taskToUsers = taskService.showMyTask(userId);
+        model.addAttribute("taskToUsers", taskToUsers);
         System.out.println("用户 "+userName+" 检索项目");
         System.out.println(projects);
+        System.out.println(taskToUsers);
         return "index";
     }
 

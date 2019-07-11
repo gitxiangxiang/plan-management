@@ -1,5 +1,6 @@
 package com.sxp.planmanagement.dao;
 
+import com.sxp.planmanagement.entity.Task;
 import com.sxp.planmanagement.entity.TaskToUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,5 +14,6 @@ public interface TaskToUserDao extends JpaRepository<TaskToUser,Integer> {
 
     List<TaskToUser> findByProjectIdIsAndUserIdIs(int projectId,int userId);
     List<TaskToUser> findByTaskIdIs(int taskId);
+    List<TaskToUser> findByUserIdIs(int userId);
 
 }

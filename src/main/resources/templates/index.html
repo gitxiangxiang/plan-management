@@ -71,19 +71,8 @@
                 <div class="tm-col tm-col-small">
                     <div class="bg-white tm-block h-100">
                         <h2 class="tm-block-title">待办事项</h2>
-                        <ol class="tm-list-group">
-                            <li class="tm-list-group-item">List of tasks</li>
-                            <li class="tm-list-group-item">Lorem ipsum doloe</li>
-                            <li class="tm-list-group-item">Read reports</li>
-                            <li class="tm-list-group-item">Write email</li>
-                            
-                            <li class="tm-list-group-item">Call customers</li>
-                            <li class="tm-list-group-item">Go to meeting</li>
-                            <li class="tm-list-group-item">Weekly plan</li>
-                            <li class="tm-list-group-item">Ask for feedback</li>
-                            
-                            <li class="tm-list-group-item">Meet Supervisor</li>
-                            <li class="tm-list-group-item">Company trip</li>
+                        <ol class="tm-list-group" >
+                            <li class="tm-list-group-item" th:each="taskToUser:${taskToUsers}" th:text="${taskToUser.taskName}">活动名</li>
                         </ol>
                     </div>
                 </div>

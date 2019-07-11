@@ -28,6 +28,7 @@ public class TaskController {
     public String addTask(Task task, HttpSession session,String leaderId){
         task.setProjectId((Integer) session.getAttribute("projectId"));
         task.setUserId(userService.getUserIdByUserName((String) session.getAttribute("userName")));
+        task.setLeader((String) session.getAttribute("userName"));
         taskService.addTask(task);
         taskService.saveTaskToUser(leaderId,task.getProjectId(),task.getId(),task.getTaskName());
         return "redirect:/per-project2";
@@ -51,5 +52,6 @@ public class TaskController {
         getProjectMember(session,model);
         return "add-product";
     }
+
 
 }
