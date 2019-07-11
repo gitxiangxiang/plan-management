@@ -39,7 +39,7 @@
                             <form action="/addTask" class="tm-edit-product-form">
                                 <div class="input-group mb-3">
                                     <label for="name" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">活动名</label>
-                                    <input placeholder="Product name" th:placeholder="请填写活动名称" id="name" name="taskName" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                    <input placeholder="Product name" th:placeholder="请填写活动名称" id="name" name="taskName" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <label for="description" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 mb-2">活动描述</label>
@@ -59,8 +59,8 @@
                                            data-large-mode="true">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <label for="selectMemForNewTask" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">负责人</label>
-                                    <input placeholder="请选择成员" value="全体成员" id="selectMemForNewTask" name="leader" href="#modal-container-395724" data-toggle="modal" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-7 col-sm-7">
+                                    <label for="selectMemForNewTask" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">参与成员</label>
+                                    <input placeholder="请选择成员" value="全体成员" id="selectMemForNewTask" name="leader" href="#modal-container-395724" data-toggle="modal" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-7 col-sm-7" required>
                                 </div>
                                 <div style="display: none">
                                     <label for="memsId">负责人ID</label>

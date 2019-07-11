@@ -34,6 +34,7 @@ public class PermissionController {
     @RequestMapping("/logout")
     public String logout(HttpSession session){
         session.setAttribute("userName",null);
+        session.invalidate();
         return "login";
     }
 

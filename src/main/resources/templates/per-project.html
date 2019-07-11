@@ -17,6 +17,11 @@
 <body>
 <div class="" id="home">
     <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div th:insert="~{dashboard::topbar(activePage='per-project')}"></div>
+            </div>
+        </div>
         <div class="row tm-content-row tm-mt-big">
             <div class="col-xl-8 col-lg-12 tm-md-12 tm-sm-12 tm-col">
                 <div class="bg-white tm-block h-100">
@@ -82,51 +87,38 @@
 
             <div class="col-xl-4 col-lg-12 tm-md-12 tm-sm-12 tm-col">
                 <div class="bg-white tm-block h-100">
-                    <h2 class="tm-block-title d-inline-block">我的活动</h2>
+                    <h2 class="tm-block-title d-inline-block">项目成员</h2>
                     <table class="table table-hover table-striped mt-3">
                         <tbody>
-                        <tr>
-                            <td>1. Cras efficitur lacus</td>
-                            <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                        </tr>
-                        <tr>
-                            <td>2. Pellentesque molestie</td>
-                            <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                        </tr>
-                        <tr>
-                            <td>3. Sed feugiat nulla</td>
-                            <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                        </tr>
-                        <tr>
-                            <td>4. Vestibulum varius arcu</td>
-                            <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                        </tr>
-                        <tr>
-                            <td>5. Aenean eget urna enim</td>
-                            <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                        </tr>
-                        <tr>
-                            <td>6. Condimentum viverra</td>
-                            <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                        </tr>
-                        <tr>
-                            <td>7. In malesuada</td>
-                            <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                        </tr>
-                        <tr>
-                            <td>8. Placerat</td>
-                            <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                        </tr>
-                        <tr>
-                            <td>9. Donec semper</td>
+                        <tr th:each="user:${users}">
+                            <td><a th:href="@{#}" th:text="${user.userName}">成员姓名</a></td>
                             <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
                         </tr>
                         </tbody>
                     </table>
 
-                    <a href="#" class="btn btn-primary tm-table-mt">Add New Category</a>
+                    <button class="btn btn-primary tm-table-mt" onclick="request('/getProjectCode',{},getProjectUniqueCode)">添加新成员</button>
                 </div>
             </div>
+
+            <div class="tm-col tm-col-big">
+                <div class="bg-white tm-block h-100">
+                    <h2 class="tm-block-title">折线图</h2>
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+            <div class="tm-col tm-col-big">
+                <div class="bg-white tm-block h-100">
+                    <h2 class="tm-block-title">柱状图</h2>
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+            <div class="tm-col tm-col-small">
+                <div class="bg-white tm-block h-100">
+                    <canvas id="pieChart" class="chartjs-render-monitor"></canvas>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -134,13 +126,68 @@
 <!-- https://jquery.com/download/ -->
 <script src="js/bootstrap.min.js"></script>
 <!-- https://getbootstrap.com/ -->
+<script src="js/moment.min.js"></script>
+<!-- https://momentjs.com/ -->
+<script src="js/utils.js"></script>
+<script src="js/Chart.min.js"></script>
+<!-- https://getbootstrap.com/ -->
+<script src="js/tooplate-scripts.js"></script>
 <script>
     $(function () {
         $('.tm-product-name').on('click', function () {
             let id = $(this).prev().text();
             window.location.href = "/showTask?taskId="+id;
         });
-    })
+    });
+
+    let ctxLine,
+        ctxBar,
+        ctxPie,
+        optionsLine,
+        optionsBar,
+        optionsPie,
+        configLine,
+        configBar,
+        configPie,
+        lineChart;
+    barChart, pieChart;
+    // DOM is ready
+    $(function () {
+        updateChartOptions();
+        drawLineChart(); // Line Chart
+        drawBarChart(); // Bar Chart
+        drawPieChart(); // Pie Chart
+        //drawCalendar(); // Calendar
+
+        // $(window).resize(function () {
+        //     updateChartOptions();
+        //     updateLineChart();
+        //     updateBarChart();
+        //     reloadPage();
+        // });
+    });
+
+    function getProjectUniqueCode(data) {
+        alert("搜索此编码即可加入该项目："+data);
+    }
+
+    function request(url, data,successFunc) {
+        $.ajax({
+            method: "post",
+            url: url,
+            data: data,
+            contentType:'application/x-www-form-urlencoded',
+            dataType:"json",
+            async:false,
+            success: function (data) {
+                successFunc(data);
+            },
+            error:function () {
+                alert("发生错误");
+            }
+        });
+    }
+
 </script>
 </body>
 </html>

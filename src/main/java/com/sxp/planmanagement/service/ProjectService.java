@@ -4,6 +4,7 @@ import com.sxp.planmanagement.dao.ProjectDao;
 import com.sxp.planmanagement.dao.UserToProjectDao;
 import com.sxp.planmanagement.entity.Project;
 import com.sxp.planmanagement.entity.UserToProject;
+import com.sxp.planmanagement.util.HashCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,13 @@ public class ProjectService {
         UserToProject userToProject = new UserToProject(
                 project1.getId(),project.getManager(),new Date(),0,0);
         userToProjectDao.save(userToProject);
+        project1.setHashcode(HashCode.getHashCode(project1.getId()+project1.getProjectName()));
+        project1 = projectDao.save(project1);
         return project1;
+    }
+
+    public void SaveOneUserToProject(UserToProject userToProject){
+        userToProjectDao.save(userToProject);
     }
 
     /**
@@ -50,6 +57,19 @@ public class ProjectService {
 
     public Project findById(int projectId){
         return projectDao.findByIdIs(projectId);
+    }
+
+    public String getProjectHashCode(int projectId){
+        Project project = projectDao.findByIdIs(projectId);
+        return project.getHashcode();
+    }
+
+    public Project getProjectByHashcode(String code){
+        return projectDao.findByHashcodeIs(code);
+    }
+
+    public UserToProject findByPidAndUid(int pid,int uid){
+        return userToProjectDao.findByProjectIdIsAndUserIdIs(pid,uid);
     }
 
 }

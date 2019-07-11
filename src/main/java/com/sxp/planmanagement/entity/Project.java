@@ -31,6 +31,9 @@ public class Project {
     @Column(name = "finishdate")
     private Date finishDate;
 
+    @Column
+    private String hashcode;
+
     @Transient
     private int MessageNumNotRead=0;
 

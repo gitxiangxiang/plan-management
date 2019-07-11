@@ -25,10 +25,11 @@ public class TaskController {
     UserService userService;
 
     @RequestMapping("/addTask")
-    public String addTask(Task task, HttpSession session){
+    public String addTask(Task task, HttpSession session,String leaderId){
         task.setProjectId((Integer) session.getAttribute("projectId"));
         task.setUserId(userService.getUserIdByUserName((String) session.getAttribute("userName")));
         taskService.addTask(task);
+        taskService.saveTaskToUser(leaderId,task.getProjectId(),task.getId(),task.getTaskName());
         return "redirect:/per-project2";
     }
 

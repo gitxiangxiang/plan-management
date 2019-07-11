@@ -17,4 +17,6 @@ public interface ProjectDao extends JpaRepository<Project ,Integer> {
     Project findByIdIs(int id);
 
     List<Project> findByIdIn(Set<Integer> ids);
+
+    Project findByHashcodeIs(String code);
 }

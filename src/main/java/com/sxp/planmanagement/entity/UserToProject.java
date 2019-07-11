@@ -27,6 +27,9 @@ public class UserToProject {
     @Column(name = "messagenumnotread")
     private int MessageNumNotRead=0;
 
+    /**
+     * 0:项目负责人，1：正常项目成员，2：请求加入但还未同意
+     */
     private int role;
 
     public UserToProject(int projectId, int userId, Date lastMessageReadDate, int messageNumNotRead, int role) {

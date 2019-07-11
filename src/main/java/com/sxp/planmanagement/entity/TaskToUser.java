@@ -1,6 +1,7 @@
 package com.sxp.planmanagement.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
  * @create 2019-07-07 23:40
  **/
 @Data
+@NoArgsConstructor
 @Entity(name = "tasktouser")
 public class TaskToUser {
     @Id
@@ -30,4 +32,10 @@ public class TaskToUser {
     @Column
     private int role;
 
+    public TaskToUser(int projectId, int userId, int taskId, String taskName) {
+        this.projectId = projectId;
+        this.userId = userId;
+        this.taskId = taskId;
+        this.taskName = taskName;
+    }
 }

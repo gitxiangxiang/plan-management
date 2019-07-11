@@ -37,11 +37,14 @@
                 <div class="tm-col tm-col-big">
                     <div class="bg-white tm-block h-100">
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-6">
                                 <h2 class="tm-block-title d-inline-block">我参与的项目</h2>
 
                             </div>
-                            <div class="col-4 text-right">
+                            <div class="col-3 text-right">
+                                <p class="tm-link-black" onclick="addProject()">加入项目</p>
+                            </div>
+                            <div class="col-3 text-right">
                                 <a href="/new-project" class="tm-link-black">新建项目</a>
                             </div>
                         </div>
@@ -85,23 +88,23 @@
                     </div>
                 </div>
 
-                <div class="tm-col tm-col-big">
-                    <div class="bg-white tm-block h-100">
-                        <h2 class="tm-block-title">折线图</h2>
-                        <canvas id="lineChart"></canvas>
-                    </div>
-                </div>
-                <div class="tm-col tm-col-big">
-                    <div class="bg-white tm-block h-100">
-                        <h2 class="tm-block-title">柱状图</h2>
-                        <canvas id="barChart"></canvas>
-                    </div>
-                </div>
-                <div class="tm-col tm-col-small">
-                    <div class="bg-white tm-block h-100">
-                        <canvas id="pieChart" class="chartjs-render-monitor"></canvas>
-                    </div>
-                </div>
+                <!--<div class="tm-col tm-col-big">-->
+                    <!--<div class="bg-white tm-block h-100">-->
+                        <!--<h2 class="tm-block-title">折线图</h2>-->
+                        <!--<canvas id="lineChart"></canvas>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="tm-col tm-col-big">-->
+                    <!--<div class="bg-white tm-block h-100">-->
+                        <!--<h2 class="tm-block-title">柱状图</h2>-->
+                        <!--<canvas id="barChart"></canvas>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="tm-col tm-col-small">-->
+                    <!--<div class="bg-white tm-block h-100">-->
+                        <!--<canvas id="pieChart" class="chartjs-render-monitor"></canvas>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
             <footer class="row tm-mt-small">
                 <div class="col-12 font-weight-light">
@@ -135,13 +138,13 @@
             configBar,
             configPie,
             lineChart;
-        barChart, pieChart;
+        //barChart, pieChart;
         // DOM is ready
         $(function () {
             updateChartOptions();
-            drawLineChart(); // Line Chart
-            drawBarChart(); // Bar Chart
-            drawPieChart(); // Pie Chart
+            //drawLineChart(); // Line Chart
+            //drawBarChart(); // Bar Chart
+            //drawPieChart(); // Pie Chart
             drawCalendar(); // Calendar
 
             // $(window).resize(function () {
@@ -150,7 +153,36 @@
             //     updateBarChart();
             //     reloadPage();
             // });
-        })
+        });
+
+        let project;
+
+        function addProject() {
+            let code = window.prompt("请输入邀请码","");
+            if(code == ""){ return; }
+            request("/getProjectByCode",{code:code});
+            let bool = window.confirm("是否加入此项目： "+project.projectName);
+            if (bool == true) {
+                request("/requestJoinProject",{projectId:project.id})
+                alert(project.status);
+            }
+        }
+        function request(url, data) {
+            $.ajax({
+                method: "post",
+                url: url,
+                data: data,
+                contentType:'application/x-www-form-urlencoded',
+                dataType:"json",
+                async:false,
+                success: function (data) {
+                    project = data;
+                },
+                error:function () {
+                    alert("发生错误");
+                }
+            });
+        }
     </script>
 </body>
 </html>

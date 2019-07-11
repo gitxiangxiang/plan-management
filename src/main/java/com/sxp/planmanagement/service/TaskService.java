@@ -1,10 +1,15 @@
 package com.sxp.planmanagement.service;
 
 import com.sxp.planmanagement.dao.TaskDao;
+import com.sxp.planmanagement.dao.TaskToUserDao;
 import com.sxp.planmanagement.entity.Task;
+import com.sxp.planmanagement.entity.TaskToUser;
+import com.sxp.planmanagement.entity.UserToProject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,6 +21,10 @@ public class TaskService {
 
     @Autowired
     TaskDao taskDao;
+    @Autowired
+    TaskToUserDao taskToUserDao;
+    @Autowired
+    UserService userService;
 
     public Task addTask(Task task){
         return taskDao.save(task);
@@ -31,5 +40,16 @@ public class TaskService {
 
     public Task findById(int id){
         return taskDao.findById(id);
+    }
+
+    public void saveTaskToUser(String users,int projectId,int taskId,String taskName){
+        String[] userArray = users.split(",");
+        System.out.println(Arrays.toString(userArray));
+        List<TaskToUser> taskToUsers = new LinkedList<>();
+        for (String user : userArray) {
+            TaskToUser taskToUser = new TaskToUser(projectId,Integer.parseInt(user),taskId,taskName);
+            taskToUsers.add(taskToUser);
+        }
+        taskToUserDao.saveAll(taskToUsers);
     }
 }

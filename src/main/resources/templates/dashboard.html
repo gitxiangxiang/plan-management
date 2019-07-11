@@ -27,31 +27,25 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">
-                        Reports
+                        报表
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Daily Report</a>
-                        <a class="dropdown-item" href="#">Weekly Report</a>
-                        <a class="dropdown-item" href="#">Yearly Report</a>
+                        <a class="dropdown-item" href="#">月度</a>
+                        <a class="dropdown-item" href="#">周度</a>
+                        <a class="dropdown-item" href="#">日度</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/products">Products</a>
+                <li class="nav-item" th:if="${session.projectId} != null">
+                    <a id="showProjectDetail" class="nav-link" th:class="${activePage=='per-project' ? 'nav-link active' : 'nav-link'}" href="/per-project2">项目详情</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/accounts">Accounts</a>
+                    <a class="nav-link" href="#">消息</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true"
-                       aria-expanded="false">
-                        Settings
+                <li class="nav-item">
+                    <a class="nav-link" href="/accounts">
+                        我的
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                        <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" href="#">Billing</a>
-                        <a class="dropdown-item" href="#">Customize</a>
-                    </div>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -70,6 +64,13 @@
             </ul>
         </div>
     </nav>
+    <script>
+        // $("#showProjectDetail").click(function () {
+        //     if([[${session.projectId}]] ==null){
+        //         alert("请先选择一个项目");
+        //     }
+        // })
+    </script>
 </footer>
 
 

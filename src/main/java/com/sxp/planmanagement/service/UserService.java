@@ -25,6 +25,11 @@ public class UserService {
         return userDao.findByUserNameIs(userName).getId();
     }
 
+    /**
+     *
+     * @param projectId
+     * @return
+     */
     public Map<String, Object> findByProjectId(int projectId){
         List<UserToProject> userToProjects = userToProjectDao.findByProjectIdIs(projectId);
         Set<Integer> ids = new LinkedHashSet<>();
